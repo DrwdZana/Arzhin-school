@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ئەنجامەکانی هەڵبژاردن</title>
+    <meta name="description" content="ئەنجامەکانی هەڵبژاردنی پەرلەمانی قوتابیان">
+    <meta name="author" content="Drwd Zana Yadgar">
+    <title>ئەنجامەکانی هەڵبژاردنی پەرلەمانی قوتابیان</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -54,49 +56,60 @@
 
         .candidate-card:hover { transform: scale(1.02); background: #2d3748; border-color: var(--accent); }
 
-        .profile-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+        .profile-img { 
+            width: 65px; height: 65px; border-radius: 50%; object-fit: cover; 
+            border: 3px solid var(--accent); box-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+        }
+
         .info { flex-grow: 1; text-align: right; }
         .name { font-weight: bold; font-size: 1.1rem; }
         .vote-count { background: var(--success); padding: 8px 12px; border-radius: 10px; font-weight: bold; font-size: 1.2rem; min-width: 35px; text-align: center;}
 
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 30px 10px;
-            margin-top: 40px;
-            border-top: 1px solid #334155;
-            color: #94a3b8;
-        }
-        .director-name {
-            display: block;
-            margin-top: 5px;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* MODAL */
+        /* MODAL POPUP */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 20px;
+            background-color: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 20px;
         }
         .modal-content {
-            background: var(--card-bg); padding: 20px; border-radius: 20px; max-width: 400px; width: 100%;
-            text-align: center; position: relative; animation: zoomIn 0.3s ease;
+            background: var(--card-bg); padding: 25px; border-radius: 20px; max-width: 450px; width: 100%;
+            text-align: center; position: relative; border: 2px solid var(--accent);
         }
-        @keyframes zoomIn { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
-        .modal-img { width: 100%; border-radius: 15px; margin-bottom: 15px; border: 3px solid var(--accent); }
-        .modal-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; display: block; }
-        .close-btn { background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
+        
+        .modal-img { 
+            width: 200px; height: 200px; border-radius: 20px; object-fit: cover;
+            border: 5px solid var(--accent); margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .modal-name { font-size: 1.8rem; font-weight: bold; color: var(--accent); margin-bottom: 15px; display: block; }
+        
+        .candidate-bio {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: right;
+            border-right: 5px solid var(--primary);
+        }
+        .bio-item { margin: 8px 0; font-size: 1.1rem; color: #f1f5f9; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+        .bio-label { font-weight: bold; color: var(--accent); margin-left: 5px; }
+
+        .back-btn { 
+            background: #ef4444; color: white; border: none; padding: 15px 25px; 
+            border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; 
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .back-btn:hover { background: #dc2626; transform: translateY(-2px); }
+
+        footer {
+            text-align: center; padding: 30px 10px; margin-top: 40px;
+            border-top: 1px solid #334155; color: #94a3b8;
+        }
+        .director-name { display: block; color: var(--accent); font-weight: bold; margin-top: 5px; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
     <header>
         <img src="https://i.ibb.co/GhsF6pb/FB-IMG-1770322589471.jpg" class="school-logo">
-        <h1>هەڵبژاردنی پەرلەمانی قوتابیان</h1>
-        <p>بۆ بینینی وێنەی کاندید، کلیک لەسەر ناوەکە بکە</p>
+        <h1>ئەنجامەکانی هەڵبژاردنی پەرلەمانی قوتابیان</h1>
+        <p>کلیک لەسەر وێنە یان ناوی کاندید بکە بۆ بینینی زانیاری پتر</p>
     </header>
 
     <div class="stats-container">
@@ -104,117 +117,133 @@
             <small>کۆی دەنگەکان</small>
             <div id="total-votes" style="font-size: 1.5rem; font-weight: bold; color: var(--accent);">0</div>
         </div>
-        <div class="stat-card">
-            <small>دەنگی پوچەڵ</small>
-            <div id="void-votes" style="font-size: 1.5rem; font-weight: bold; color: #f87171;">15</div>
-        </div>
     </div>
 
     <div class="candidates-grid" id="election-grid">
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١', 'https://i.ibb.co/jkrDk7ry/IMG-20260203-110558-457-575803382.jpg')">
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١', 'https://i.ibb.co/jkrDk7ry/IMG-20260203-110558-457-575803382.jpg', '١٠', 'زانستی', 'زانیاری لێرە بنووسە')">
             <img src="https://i.ibb.co/jkrDk7ry/IMG-20260203-110558-457-575803382.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٢', 'https://i.ibb.co/hF0kzxZJ/IMG-20260203-110810-174-767318867.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٢', 'https://i.ibb.co/hF0kzxZJ/IMG-20260203-110810-174-767318867.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/hF0kzxZJ/IMG-20260203-110810-174-767318867.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٢</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٣', 'https://i.ibb.co/svgk3Sz9/IMG-20260203-110928-619-65156443.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٣', 'https://i.ibb.co/svgk3Sz9/IMG-20260203-110928-619-65156443.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/svgk3Sz9/IMG-20260203-110928-619-65156443.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٣</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٤', 'https://i.ibb.co/FLyqBDH6/IMG-20260203-111025-725-1096454164.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٤', 'https://i.ibb.co/FLyqBDH6/IMG-20260203-111025-725-1096454164.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/FLyqBDH6/IMG-20260203-111025-725-1096454164.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٤</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٥', 'https://i.ibb.co/KjzRknSt/IMG-20260203-111139-499-1995306862.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٥', 'https://i.ibb.co/KjzRknSt/IMG-20260203-111139-499-1995306862.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/KjzRknSt/IMG-20260203-111139-499-1995306862.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٥</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٦', 'https://i.ibb.co/dwNnFmyC/IMG-20260203-111437-373-426587826.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٦', 'https://i.ibb.co/dwNnFmyC/IMG-20260203-111437-373-426587826.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/dwNnFmyC/IMG-20260203-111437-373-426587826.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٦</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٧', 'https://i.ibb.co/prkDzdDt/IMG-20260203-111535-096-1211112437.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٧', 'https://i.ibb.co/prkDzdDt/IMG-20260203-111535-096-1211112437.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/prkDzdDt/IMG-20260203-111535-096-1211112437.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٧</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٨', 'https://i.ibb.co/VW2wgQCK/IMG-20260203-111636-417-1493613222.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٨', 'https://i.ibb.co/VW2wgQCK/IMG-20260203-111636-417-1493613222.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/VW2wgQCK/IMG-20260203-111636-417-1493613222.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٨</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٩', 'https://i.ibb.co/m5mstL6K/IMG-20260203-111722-766-1649434539.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٩', 'https://i.ibb.co/m5mstL6K/IMG-20260203-111722-766-1649434539.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/m5mstL6K/IMG-20260203-111722-766-1649434539.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٩</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٠', 'https://i.ibb.co/h1s5ygWS/IMG-20260203-111734-480-518283755.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٠', 'https://i.ibb.co/h1s5ygWS/IMG-20260203-111734-480-518283755.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/h1s5ygWS/IMG-20260203-111734-480-518283755.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٠</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١١', 'https://i.ibb.co/DPnTsNN6/IMG-20260203-111748-253-176237262.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١١', 'https://i.ibb.co/DPnTsNN6/IMG-20260203-111748-253-176237262.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/DPnTsNN6/IMG-20260203-111748-253-176237262.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١١</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٢', 'https://i.ibb.co/8DC7MZYG/IMG-20260203-111838-917-30060835.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٢', 'https://i.ibb.co/8DC7MZYG/IMG-20260203-111838-917-30060835.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/8DC7MZYG/IMG-20260203-111838-917-30060835.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٢</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٣', 'https://i.ibb.co/cS3CPDRM/IMG-20260203-111928-521-802336422.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٣', 'https://i.ibb.co/cS3CPDRM/IMG-20260203-111928-521-802336422.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/cS3CPDRM/IMG-20260203-111928-521-802336422.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٣</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٤', 'https://i.ibb.co/vC6zR79j/IMG-20260203-112016-857-589834101.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٤', 'https://i.ibb.co/vC6zR79j/IMG-20260203-112016-857-589834101.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/vC6zR79j/IMG-20260203-112016-857-589834101.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٤</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٥', 'https://i.ibb.co/xtdw7gXZ/IMG-20260203-112151-794-1973376101.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٥', 'https://i.ibb.co/xtdw7gXZ/IMG-20260203-112151-794-1973376101.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/xtdw7gXZ/IMG-20260203-112151-794-1973376101.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٥</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٦', 'https://i.ibb.co/CsVv7SYp/IMG-20260203-112241-266-146346727.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٦', 'https://i.ibb.co/CsVv7SYp/IMG-20260203-112241-266-146346727.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/CsVv7SYp/IMG-20260203-112241-266-146346727.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٦</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٧', 'https://i.ibb.co/6cM359JM/IMG-20260203-112300-417-1719278317.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٧', 'https://i.ibb.co/6cM359JM/IMG-20260203-112300-417-1719278317.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/6cM359JM/IMG-20260203-112300-417-1719278317.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٧</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٨', 'https://i.ibb.co/xq9bX0fk/IMG-20260203-112443-566-104986578.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٨', 'https://i.ibb.co/xq9bX0fk/IMG-20260203-112443-566-104986578.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/xq9bX0fk/IMG-20260203-112443-566-104986578.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٨</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ١٩', 'https://i.ibb.co/F4MdHvd9/IMG-20260203-112631-834-1607657613.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ١٩', 'https://i.ibb.co/F4MdHvd9/IMG-20260203-112631-834-1607657613.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/F4MdHvd9/IMG-20260203-112631-834-1607657613.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ١٩</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٢٠', 'https://i.ibb.co/PvjWSY6d/IMG-20260203-112815-373-817592689.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٢٠', 'https://i.ibb.co/PvjWSY6d/IMG-20260203-112815-373-817592689.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/PvjWSY6d/IMG-20260203-112815-373-817592689.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٢٠</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
-        <div class="candidate-card" data-votes="7" onclick="openModal('کاندیدی ٢١', 'https://i.ibb.co/zhGDyxVH/IMG-20260203-113208-414-1370748618.jpg')">
+
+        <div class="candidate-card" data-votes="0" onclick="openModal('کاندیدی ٢١', 'https://i.ibb.co/zhGDyxVH/IMG-20260203-113208-414-1370748618.jpg', '...', '...', '...')">
             <img src="https://i.ibb.co/zhGDyxVH/IMG-20260203-113208-414-1370748618.jpg" class="profile-img">
             <div class="info"><span class="name">کاندیدی ٢١</span></div>
-            <div class="vote-count">7</div>
+            <div class="vote-count">0</div>
         </div>
     </div>
 
@@ -222,19 +251,29 @@
         <div class="modal-content">
             <img id="modalImg" src="" class="modal-img">
             <span id="modalName" class="modal-name"></span>
-            <button class="close-btn" onclick="closeModal()">داخستن</button>
+            
+            <div class="candidate-bio">
+                <p class="bio-item"><span class="bio-label">پۆل:</span> <span id="modalGrade"></span></p>
+                <p class="bio-item"><span class="bio-label">پۆل:</span> <span id="modalClass"></span></p>
+                <p class="bio-item" style="border:none;"><span class="bio-label">دەربارە:</span> <br><span id="modalAbout"></span></p>
+            </div>
+
+            <button class="back-btn" onclick="closeModal()">گەڕانەوە</button>
         </div>
     </div>
 
     <footer>
-        <p>گەشەپێدەری وێبسایت لەلایەن:</p>
-        <span class="director-name"> Drwd Zana Yadgar</span>
+        <p>گەشەپێدەری وێبسایت لەلایەن :</p>
+        <span class="director-name">Drwd Zana Yadgar</span>
     </footer>
 
     <script>
-        function openModal(name, img) {
+        function openModal(name, img, grade, className, about) {
             document.getElementById('modalName').innerText = name;
             document.getElementById('modalImg').src = img;
+            document.getElementById('modalGrade').innerText = grade;
+            document.getElementById('modalClass').innerText = className;
+            document.getElementById('modalAbout').innerText = about;
             document.getElementById('candidateModal').style.display = 'flex';
         }
 
@@ -245,21 +284,14 @@
         function processResults() {
             const grid = document.getElementById('election-grid');
             const cards = Array.from(grid.getElementsByClassName('candidate-card'));
-            
-            // Sort High to Low
             cards.sort((a, b) => parseInt(b.dataset.votes) - parseInt(a.dataset.votes));
-            
             grid.innerHTML = "";
             cards.forEach(card => grid.appendChild(card));
-
-            // Totals
             let validTotal = cards.reduce((sum, card) => sum + parseInt(card.dataset.votes), 0);
-            let voidTotal = parseInt(document.getElementById('void-votes').innerText);
-            document.getElementById('total-votes').innerText = validTotal + voidTotal;
+            document.getElementById('total-votes').innerText = validTotal;
         }
 
         window.onload = processResults;
-
         window.onclick = function(event) {
             if (event.target == document.getElementById('candidateModal')) { closeModal(); }
         }
