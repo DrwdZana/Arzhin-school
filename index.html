@@ -15,9 +15,10 @@
             --danger: #ef4444;
             --whatsapp: #25D366;
             --telegram: #0088cc;
+            --glow: rgba(37, 99, 235, 0.4);
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
 
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -32,55 +33,60 @@
 
         header {
             text-align: center;
-            padding: 20px 15px;
+            padding: 25px 15px;
             background: linear-gradient(135deg, #1e40af, #2563eb);
-            border-radius: 20px;
+            border-radius: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border-bottom: 4px solid var(--accent);
         }
 
-        .school-logo { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; border-radius: 50%; background: white; padding: 2px; }
+        .school-logo { width: 80px; height: 80px; object-fit: contain; margin-bottom: 12px; border-radius: 50%; background: white; padding: 3px; box-shadow: 0 0 15px white; }
 
-        h1 { font-size: 1.5rem; margin: 5px 0; }
+        h1 { font-size: 1.6rem; margin: 5px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
         .status-container {
             background: #000;
-            padding: 15px;
+            padding: 12px;
             border-radius: 15px;
             margin-bottom: 10px;
             text-align: center;
             border: 2px solid var(--danger);
+            animation: pulse 2s infinite;
         }
-        #status-text { font-size: 1.4rem; font-weight: bold; color: var(--danger); letter-spacing: 1px; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        
+        #status-text { font-size: 1.3rem; font-weight: bold; color: var(--danger); }
 
         .total-votes-box {
             background: var(--card-bg);
-            border: 1px solid var(--primary);
-            padding: 12px;
-            border-radius: 12px;
+            border: 2px solid var(--primary);
+            padding: 15px;
+            border-radius: 18px;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px var(--glow);
         }
-        #total-count { color: var(--accent); font-weight: bold; font-size: 1.4rem; margin-right: 8px; }
+        .total-label { font-size: 1.1rem; display: block; margin-bottom: 5px; color: #94a3b8; }
+        #total-count { color: var(--accent); font-weight: bold; font-size: 2rem; }
 
         .controls { max-width: 800px; margin: 0 auto 20px auto; width: 100%; }
         #searchInput {
-            width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--primary);
+            width: 100%; padding: 16px; border-radius: 15px; border: 2px solid #334155;
             background: var(--card-bg); color: white; text-align: right; margin-bottom: 15px;
-            font-size: 1rem; outline: none;
+            font-size: 1rem; outline: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
         }
+        #searchInput:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--glow); }
 
-        .share-box { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        .share-btn { border: none; padding: 12px 20px; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; flex: 1; max-width: 150px; font-size: 0.9rem; }
+        .share-box { display: flex; justify-content: center; gap: 12px; margin-bottom: 15px; }
+        .share-btn { border: none; padding: 12px; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; flex: 1; max-width: 160px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .wa { background: var(--whatsapp); }
         .tg { background: var(--telegram); }
 
         .candidates-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 12px; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 15px; 
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
@@ -88,67 +94,70 @@
 
         .candidate-card {
             background: var(--card-bg); 
-            padding: 12px; 
-            border-radius: 18px;
+            padding: 15px; 
+            border-radius: 20px;
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            gap: 15px; 
             border: 1px solid #334155; 
-            transition: 0.3s;
-            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
+        .candidate-card:hover { border-color: var(--primary); transform: translateY(-3px); background: #24334a; }
         .candidate-card.hidden { display: none; }
-        .candidate-card:active { transform: scale(0.98); }
 
-        .profile-img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
+        .profile-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); background: #334155; }
 
-        .info { flex-grow: 1; text-align: right; overflow: hidden; }
-        .name { font-weight: bold; font-size: 1rem; color: #f8fafc; white-space: nowrap; text-overflow: ellipsis; display: block; }
+        .info { flex-grow: 1; text-align: right; }
+        .name { font-weight: bold; font-size: 1.1rem; color: #f8fafc; margin-bottom: 4px; display: block; }
 
-        .vote-count { padding: 8px 12px; border-radius: 10px; font-weight: bold; min-width: 50px; text-align: center; }
-        .winner { background: var(--success); color: white; }
-        .spare { background: var(--warning); color: black; }
-        .loser { background: var(--danger); color: white; }
+        .vote-count { padding: 10px 15px; border-radius: 12px; font-weight: 900; min-width: 60px; text-align: center; font-size: 1.2rem; }
+        .winner { background: var(--success); color: white; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3); }
+        .spare { background: var(--warning); color: black; box-shadow: 0 4px 10px rgba(234, 179, 8, 0.3); }
+        .loser { background: var(--danger); color: white; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
 
+        /* Modal */
         .modal {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 15px;
+            display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px;
         }
         .modal-content {
-            background: var(--card-bg); padding: 25px; border-radius: 20px; max-width: 350px; width: 100%;
-            text-align: center; border: 2px solid var(--accent);
+            background: var(--card-bg); padding: 30px; border-radius: 25px; max-width: 400px; width: 100%;
+            text-align: center; border: 2px solid var(--accent); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-        .modal-img { width: 180px; height: 180px; border-radius: 15px; object-fit: cover; border: 3px solid var(--accent); margin-bottom: 15px; }
+        .modal-img { width: 200px; height: 200px; border-radius: 20px; object-fit: cover; border: 4px solid var(--accent); margin-bottom: 20px; }
 
-        .back-btn { background: var(--danger); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; }
+        .back-btn { background: var(--danger); color: white; border: none; padding: 15px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
 
-        footer { text-align: center; padding: 30px 10px; margin-top: auto; color: #94a3b8; border-top: 1px solid #334155; }
-        .visitor-box { margin-top: 15px; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; }
+        footer { text-align: center; padding: 40px 10px; margin-top: auto; border-top: 1px solid #334155; }
+        .visitor-section { margin-top: 20px; }
+        .visitor-section p { font-size: 0.9rem; color: #64748b; margin-bottom: 10px; }
         
         @media (max-width: 480px) {
-            h1 { font-size: 1.2rem; }
-            .profile-img { width: 55px; height: 55px; }
+            h1 { font-size: 1.3rem; }
+            .candidates-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="https://i.ibb.co/GhsF6pb/FB-IMG-1770322589471.jpg" class="school-logo">
+        <img src="https://i.ibb.co/GhsF6pb/FB-IMG-1770322589471.jpg" class="school-logo" alt="Logo">
         <h1>هەڵبژاردنی پەرلەمانی قوتابیان</h1>
-        <p style="margin-top: 5px; color: var(--accent); font-weight: bold;">ئامادەیی ئارژینی کچان</p>
+        <div style="color: var(--accent); font-weight: bold; margin-top: 5px;">ئامادەیی ئارژینی کچان - ٢٠٢٦</div>
     </header>
 
     <div class="status-container">
-        <div id="status-text">دەنگدان کۆتایی هات</div>
+        <div id="status-text">🔴 دەنگدان کۆتایی هات</div>
     </div>
 
     <div class="total-votes-box">
-        کۆی گشتی دەنگەکان: <span id="total-count">0</span>
+        <span class="total-label">کۆی گشتی دەنگەکان</span>
+        <span id="total-count">0</span>
     </div>
 
     <div class="controls">
-        <input type="text" id="searchInput" placeholder="گەڕان بۆ ناوی کاندید..." onkeyup="searchCandidates()">
+        <input type="text" id="searchInput" placeholder="🔎 گەڕان بۆ ناوی کاندید..." onkeyup="searchCandidates()">
         <div class="share-box">
             <button class="share-btn wa" onclick="shareWA()">WhatsApp</button>
             <button class="share-btn tg" onclick="shareTG()">Telegram</button>
@@ -156,122 +165,84 @@
     </div>
 
     <div class="candidates-grid" id="election-grid">
-        <div class="candidate-card" data-votes="11" onclick="openModal('ماریا احمد (228)', 'https://i.postimg.cc/0NVbqy2K/IMG-20260203-candidate-1.jpg', '10', 'زانستی ، ج')">
-            <img src="https://i.postimg.cc/0NVbqy2K/IMG-20260203-candidate-1.jpg" class="profile-img">
-            <div class="info"><span class="name">ماریا احمد (228)</span></div><div class="vote-count">11</div>
+        <div class="candidate-card" data-votes="39" onclick="openModal('ئیناس ڕێبوار (305)', 'https://i.postimg.cc/zGskgNsS/IMG-20260203-111722-766-1649434539.jpg', '10', 'زانستی ، أ')">
+            <img src="https://i.postimg.cc/zGskgNsS/IMG-20260203-111722-766-1649434539.jpg" class="profile-img">
+            <div class="info"><span class="name">ئیناس ڕێبوار (305)</span></div><div class="vote-count">39</div>
         </div>
-        <div class="candidate-card" data-votes="27" onclick="openModal('هەدیە جبار (215)', 'https://i.postimg.cc/DfJtVf2d/IMG-20260203-110810-174-767318867.jpg', '12', 'زانستی ، ج')">
-            <img src="https://i.postimg.cc/DfJtVf2d/IMG-20260203-110810-174-767318867.jpg" class="profile-img">
-            <div class="info"><span class="name">هەدیە جبار (215)</span></div><div class="vote-count">27</div>
-        </div>
-        <div class="candidate-card" data-votes="5" onclick="openModal('ئانیا هێمن (256)', 'https://i.postimg.cc/yd9XPGzM/IMG-20260203-110928-619-65156443.jpg', '10', 'زانستی ، أ')">
-            <img src="https://i.postimg.cc/yd9XPGzM/IMG-20260203-110928-619-65156443.jpg" class="profile-img">
-            <div class="info"><span class="name">ئانیا هێمن (256)</span></div><div class="vote-count">5</div>
+        <div class="candidate-card" data-votes="38" onclick="openModal('دەروون حسن (252)', 'https://i.postimg.cc/mgg5ZTQ8/IMG-20260203-113208-414-1370748618.jpg', '10', 'وێژەیی ، أ')">
+            <img src="https://i.postimg.cc/mgg5ZTQ8/IMG-20260203-113208-414-1370748618.jpg" class="profile-img">
+            <div class="info"><span class="name">دەروون حسن (252)</span></div><div class="vote-count">38</div>
         </div>
         <div class="candidate-card" data-votes="36" onclick="openModal('ژوان سۆران (262)', 'https://i.postimg.cc/cHMt6GWX/IMG-20260203-111025-725-1096454164.jpg', '11', 'زانستی ، ب')">
             <img src="https://i.postimg.cc/cHMt6GWX/IMG-20260203-111025-725-1096454164.jpg" class="profile-img">
             <div class="info"><span class="name">ژوان سۆران (262)</span></div><div class="vote-count">36</div>
         </div>
-        <div class="candidate-card" data-votes="5" onclick="openModal('دونیا سالار (255)', 'https://i.postimg.cc/hjSPyzFb/IMG-20260203-111139-499-1995306862.jpg', '12', 'زانستی ، ج')">
-            <img src="https://i.postimg.cc/hjSPyzFb/IMG-20260203-111139-499-1995306862.jpg" class="profile-img">
-            <div class="info"><span class="name">دونیا سالار (255)</span></div><div class="vote-count">5</div>
+        <div class="candidate-card" data-votes="29" onclick="openModal('خەندە سامان (267)', 'https://i.postimg.cc/J0sfhMVw/IMG-20260203-112631-834-1607657613.jpg', '11', 'زانستی ، أ')">
+            <img src="https://i.postimg.cc/J0sfhMVw/IMG-20260203-112631-834-1607657613.jpg" class="profile-img">
+            <div class="info"><span class="name">خەندە سامان (267)</span></div><div class="vote-count">29</div>
         </div>
-        <div class="candidate-card" data-votes="0" onclick="openModal('شیراز ئاراس (269)', 'https://i.postimg.cc/BZRtsvHd/IMG-20260203-111437-373-426587826.jpg', '10', 'وێژەیی ، أ')">
-            <img src="https://i.postimg.cc/BZRtsvHd/IMG-20260203-111437-373-426587826.jpg" class="profile-img">
-            <div class="info"><span class="name">شیراز ئاراس (269)</span></div><div class="vote-count">0</div>
-        </div>
-        <div class="candidate-card" data-votes="6" onclick="openModal('ڕەیان فەرمان (203)', 'https://i.postimg.cc/RZdM3CJq/IMG-20260203-111535-096-1211112437.jpg', '10', 'وێژەیی ، أ')">
-            <img src="https://i.postimg.cc/RZdM3CJq/IMG-20260203-111535-096-1211112437.jpg" class="profile-img">
-            <div class="info"><span class="name">ڕەیان فەرمان (203)</span></div><div class="vote-count">6</div>
-        </div>
-        <div class="candidate-card" data-votes="39" onclick="openModal('ئیناس ڕێبوار (305)', 'https://i.postimg.cc/zGskgNsS/IMG-20260203-111722-766-1649434539.jpg', '10', 'زانستی ، أ')">
-            <img src="https://i.postimg.cc/zGskgNsS/IMG-20260203-111722-766-1649434539.jpg" class="profile-img">
-            <div class="info"><span class="name">ئیناس ڕێبوار (305)</span></div><div class="vote-count">39</div>
-        </div>
-        <div class="candidate-card" data-votes="5" onclick="openModal('بەهەشت محێدین (358)', 'https://i.postimg.cc/1Rb0Tsty/IMG-20260203-111734-480-518283755.jpg', '10', 'زانستی ، ب')">
-            <img src="https://i.postimg.cc/1Rb0Tsty/IMG-20260203-111734-480-518283755.jpg" class="profile-img">
-            <div class="info"><span class="name">بەهەشت محێدین (358)</span></div><div class="vote-count">5</div>
-        </div>
-        <div class="candidate-card" data-votes="13" onclick="openModal('هانا هێمن (222)', 'https://i.postimg.cc/m2xMjjXB/IMG-20260203-111748-253-176237262.jpg', '10', 'زانستی ، ب')">
-            <img src="https://i.postimg.cc/m2xMjjXB/IMG-20260203-111748-253-176237262.jpg" class="profile-img">
-            <div class="info"><span class="name">هانا هێمن (222)</span></div><div class="vote-count">13</div>
-        </div>
-        <div class="candidate-card" data-votes="4" onclick="openModal('ئیناس عیرفان (202)', 'https://i.postimg.cc/SQcjShr5/IMG-20260203-111838-917-30060835.jpg', '10', 'زانستی ، ب')">
-            <img src="https://i.postimg.cc/SQcjShr5/IMG-20260203-111838-917-30060835.jpg" class="profile-img">
-            <div class="info"><span class="name">ئیناس عیرفان (202)</span></div><div class="vote-count">4</div>
-        </div>
-        <div class="candidate-card" data-votes="4" onclick="openModal('ئەسما عثمان (250)', 'https://i.postimg.cc/WzxPXZ7X/IMG-20260203-111928-521-802336422.jpg', '11', 'وێژەیی ، أ')">
-            <img src="https://i.postimg.cc/WzxPXZ7X/IMG-20260203-111928-521-802336422.jpg" class="profile-img">
-            <div class="info"><span class="name">ئەسما عثمان (250)</span></div><div class="vote-count">4</div>
-        </div>
-        <div class="candidate-card" data-votes="5" onclick="openModal('پەری والی (226)', 'https://i.postimg.cc/HLT1ZdQC/IMG-20260203-112016-857-589834101.jpg', '11', 'وێژەیی ، أ')">
-            <img src="https://i.postimg.cc/HLT1ZdQC/IMG-20260203-112016-857-589834101.jpg" class="profile-img">
-            <div class="info"><span class="name">پەری والی (226)</span></div><div class="vote-count">5</div>
-        </div>
-        <div class="candidate-card" data-votes="25" onclick="openModal('نڤار ئاراس (248)', 'https://i.postimg.cc/sxktprVb/IMG-20260203-112151-794-1973376101.jpg', '12', 'وێژەیی ، أ')">
-            <img src="https://i.postimg.cc/sxktprVb/IMG-20260203-112151-794-1973376101.jpg" class="profile-img">
-            <div class="info"><span class="name">نڤار ئاراس (248)</span></div><div class="vote-count">25</div>
-        </div>
-        <div class="candidate-card" data-votes="14" onclick="openModal('هێلین عمر (206)', 'https://i.postimg.cc/cHMt6GWX/IMG-20260203-111025-725-1096454164.jpg', '12', 'زانستی ، أ')">
-            <img src="https://i.postimg.cc/cHMt6GWX/IMG-20260203-111025-725-1096454164.jpg" class="profile-img">
-            <div class="info"><span class="name">هێلین عمر (206)</span></div><div class="vote-count">14</div>
+        <div class="candidate-card" data-votes="27" onclick="openModal('هەدیە جبار (215)', 'https://i.postimg.cc/DfJtVf2d/IMG-20260203-110810-174-767318867.jpg', '12', 'زانستی ، ج')">
+            <img src="https://i.postimg.cc/DfJtVf2d/IMG-20260203-110810-174-767318867.jpg" class="profile-img">
+            <div class="info"><span class="name">هەدیە جبار (215)</span></div><div class="vote-count">27</div>
         </div>
         <div class="candidate-card" data-votes="27" onclick="openModal('فریشتە خلیل (359)', 'https://i.postimg.cc/JzLh8wN8/IMG-20260203-112300-417-1719278317.jpg', '12', 'زانستی ، د')">
             <img src="https://i.postimg.cc/JzLh8wN8/IMG-20260203-112300-417-1719278317.jpg" class="profile-img">
             <div class="info"><span class="name">فریشتە خلیل (359)</span></div><div class="vote-count">27</div>
         </div>
+        <div class="candidate-card" data-votes="25" onclick="openModal('نڤار ئاراس (248)', 'https://i.postimg.cc/sxktprVb/IMG-20260203-112151-794-1973376101.jpg', '12', 'وێژەیی ، أ')">
+            <img src="https://i.postimg.cc/sxktprVb/IMG-20260203-112151-794-1973376101.jpg" class="profile-img">
+            <div class="info"><span class="name">نڤار ئاراس (248)</span></div><div class="vote-count">25</div>
+        </div>
         <div class="candidate-card" data-votes="23" onclick="openModal('هانا زانیار (212)', 'https://i.postimg.cc/DwSSKbMh/IMG-20260203-112443-566-104986578.jpg', '12', 'زانستی ، أ')">
             <img src="https://i.postimg.cc/DwSSKbMh/IMG-20260203-112443-566-104986578.jpg" class="profile-img">
             <div class="info"><span class="name">هانا زانیار (212)</span></div><div class="vote-count">23</div>
-        </div>
-        <div class="candidate-card" data-votes="29" onclick="openModal('خەندە سامان (267)', 'https://i.postimg.cc/J0sfhMVw/IMG-20260203-112631-834-1607657613.jpg', '11', 'زانستی ، أ')">
-            <img src="https://i.postimg.cc/J0sfhMVw/IMG-20260203-112631-834-1607657613.jpg" class="profile-img">
-            <div class="info"><span class="name">خەندە سامان (267)</span></div><div class="vote-count">29</div>
         </div>
         <div class="candidate-card" data-votes="16" onclick="openModal('پەیام جەمال (216)', 'https://i.postimg.cc/SQwSztZ7/IMG-20260203-112815-373-817592689.jpg', '11', 'وێژەیی ، أ')">
             <img src="https://i.postimg.cc/SQwSztZ7/IMG-20260203-112815-373-817592689.jpg" class="profile-img">
             <div class="info"><span class="name">پەیام جەمال (216)</span></div><div class="vote-count">16</div>
         </div>
-        <div class="candidate-card" data-votes="38" onclick="openModal('دەروون حسن (252)', 'https://i.postimg.cc/mgg5ZTQ8/IMG-20260203-113208-414-1370748618.jpg', '10', 'وێژەیی ، أ')">
-            <img src="https://i.postimg.cc/mgg5ZTQ8/IMG-20260203-113208-414-1370748618.jpg" class="profile-img">
-            <div class="info"><span class="name">دەروون حسن (252)</span></div><div class="vote-count">38</div>
+        <div class="candidate-card" data-votes="14" onclick="openModal('هێلین عمر (206)', 'https://i.postimg.cc/cHMt6GWX/IMG-20260203-111025-725-1096454164.jpg', '12', 'زانستی ، أ')">
+            <img src="https://i.postimg.cc/cHMt6GWX/IMG-20260203-111025-725-1096454164.jpg" class="profile-img">
+            <div class="info"><span class="name">هێلین عمر (206)</span></div><div class="vote-count">14</div>
         </div>
     </div>
 
     <div id="candidateModal" class="modal">
         <div class="modal-content">
             <img id="modalImg" src="" class="modal-img">
-            <h2 id="modalName" style="color:var(--accent); margin-bottom: 15px;"></h2>
-            <p id="modalGrade" style="margin-bottom: 20px; font-size: 1.1rem;"></p>
+            <h2 id="modalName" style="color:var(--accent); margin-bottom: 10px;"></h2>
+            <p id="modalGrade" style="margin-bottom: 25px; font-size: 1.2rem; color: #cbd5e1;"></p>
             <button class="back-btn" onclick="closeModal()">گەڕانەوە</button>
         </div>
     </div>
 
     <footer>
         <p>گەشەپێدەر: <b style="color:var(--accent)">Drwd Zana Yadgar</b></p>
-        <div class="visitor-box">
-            <span>ژمارەی سەردانیکەران: </span>
-            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2FArzhin-School-Election-2026&count_bg=%232563EB&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" alt="Visitors">
+        <div class="visitor-section">
+            <p>سەردانیکەران</p>
+            <img src="https://count.getloli.com/get/@arzhin_school_final?theme=rule73" alt="Visitor Counter">
         </div>
     </footer>
 
     <script>
         function searchCandidates() {
             let input = document.getElementById('searchInput').value.toLowerCase();
-            for (let card of document.getElementsByClassName('candidate-card')) {
-                card.classList.toggle('hidden', !card.querySelector('.name').innerText.toLowerCase().includes(input));
+            let cards = document.getElementsByClassName('candidate-card');
+            for (let card of cards) {
+                let name = card.querySelector('.name').innerText.toLowerCase();
+                card.classList.toggle('hidden', !name.includes(input));
             }
         }
 
-        function shareWA() { window.open(`whatsapp://send?text=ئەنجامەکان: ${window.location.href}`); }
+        function shareWA() { window.open(`whatsapp://send?text=ئەنجامەکانی هەڵبژاردنی قوتابیانی ئارژین ببینە: ${window.location.href}`); }
         function shareTG() { window.open(`https://t.me/share/url?url=${window.location.href}`); }
 
-        function updateResults() {
+        function updateUI() {
             const grid = document.getElementById('election-grid');
             const cards = Array.from(grid.getElementsByClassName('candidate-card'));
             let total = 0;
 
-            // 1. Calculate Total and Sort
+            // Sort and highlight
             cards.sort((a, b) => parseInt(b.dataset.votes) - parseInt(a.dataset.votes)).forEach((card, i) => {
                 const votes = parseInt(card.dataset.votes);
                 total += votes;
@@ -279,26 +250,30 @@
                 const vb = card.querySelector('.vote-count');
                 vb.classList.remove('winner', 'spare', 'loser');
                 
-                // Color coding: Top 6 Green, Next 3 Yellow, Others Red
-                vb.classList.add(i < 6 ? 'winner' : i < 9 ? 'spare' : 'loser');
+                if (i < 6) vb.classList.add('winner');
+                else if (i < 9) vb.classList.add('spare');
+                else vb.classList.add('loser');
                 
                 grid.appendChild(card);
             });
 
-            // 2. Update Total Display
-            document.getElementById('total-count').innerText = total;
+            document.getElementById('total-count').innerText = total.toLocaleString();
         }
 
         function openModal(n, im, g, c) {
             document.getElementById('modalName').innerText = n;
             document.getElementById('modalImg').src = im;
-            document.getElementById('modalGrade').innerText = "پۆلی " + g + " ، " + c;
+            document.getElementById('modalGrade').innerText = "پۆلی " + g + " - " + c;
             document.getElementById('candidateModal').style.display = 'flex';
         }
+
         function closeModal() { document.getElementById('candidateModal').style.display = 'none'; }
-        
-        // Run on load
-        window.onload = updateResults;
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('candidateModal')) closeModal();
+        }
+
+        window.onload = updateUI;
     </script>
 </body>
 </html>
