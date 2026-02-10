@@ -12,7 +12,7 @@
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --success: #10b981;
-            --warning: #facc15; /* Changed to pure yellow */
+            --warning: #facc15; 
             --danger: #ef4444;
         }
 
@@ -130,9 +130,9 @@
             color: white;
         }
 
-        /* Rank Colors */
+        /* Rank Colors Updated */
         .rank-top { background: var(--success); box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
-        .rank-mid { background: var(--warning); color: #000; box-shadow: 0 0 10px rgba(250, 204, 21, 0.3); }
+        .rank-mid { background: var(--warning); color: #000 !important; box-shadow: 0 0 10px rgba(250, 204, 21, 0.3); }
         .rank-low { background: var(--danger); box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
 
         .modal {
@@ -281,7 +281,7 @@
         <p>Developed by <b style="color: var(--primary);">Drwd Zana Yadgar</b></p>
         <div class="visitor-box">
             <span style="color: #64748b; font-size: 0.8rem; margin-bottom: 5px;">LIVE VISITS</span>
-            <span id="visitor-num">201</span>
+            <span id="visitor-num">280</span>
         </div>
     </footer>
 
@@ -294,14 +294,12 @@
                 total += parseInt(card.dataset.votes);
                 const badge = card.querySelector('.vote-badge');
                 
-                // Remove old classes
-                badge.classList.remove('rank-top', 'rank-mid', 'rank-low', 'rank-1', 'winner', 'normal');
+                badge.classList.remove('rank-top', 'rank-mid', 'rank-low');
                 
-                // Apply new color logic
                 if (i < 6) {
-                    badge.classList.add('rank-top'); // Top 6: Green
+                    badge.classList.add('rank-top'); // 1-6: Green
                 } else if (i >= 6 && i < 9) {
-                    badge.classList.add('rank-mid'); // 7th-9th: Yellow
+                    badge.classList.add('rank-mid'); // 7-9: Yellow
                 } else {
                     badge.classList.add('rank-low'); // Others: Red
                 }
@@ -311,10 +309,20 @@
             });
             document.getElementById('total-count').innerText = total;
             
-            let base = 200;
-            let sessionHits = parseInt(sessionStorage.getItem('hits') || 1);
-            document.getElementById('visitor-num').innerText = base + sessionHits;
-            sessionStorage.setItem('hits', sessionHits + 1);
+            // --- NEW PERSISTENT VISITOR COUNTER ---
+            const START_VAL = 280;
+            let currentVisits = localStorage.getItem('school_election_visits');
+            
+            if (currentVisits === null) {
+                // First time ever visiting on this browser
+                currentVisits = START_VAL;
+            } else {
+                // Increment by 1 for this new view
+                currentVisits = parseInt(currentVisits) + 1;
+            }
+            
+            localStorage.setItem('school_election_visits', currentVisits);
+            document.getElementById('visitor-num').innerText = currentVisits;
         }
 
         function search() {
