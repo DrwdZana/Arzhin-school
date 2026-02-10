@@ -47,11 +47,23 @@
             background: #000;
             padding: 15px;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
             border: 2px solid var(--danger);
         }
-        #status-text { font-size: 1.4rem; font-weight: bold; color: var(--danger); letter-spacing: 1px; }
+        #status-text { font-size: 1.4rem; font-weight: bold; color: var(--danger); }
+
+        /* NEW TOTAL VOTES BOX */
+        .total-votes-box {
+            background: var(--card-bg);
+            border: 1px solid var(--primary);
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        #total-count { color: var(--accent); font-weight: bold; font-size: 1.3rem; margin-right: 5px; }
 
         .controls { max-width: 800px; margin: 0 auto 20px auto; width: 100%; }
         #searchInput {
@@ -85,27 +97,14 @@
             transition: 0.3s;
             cursor: pointer;
         }
-        .candidate-card:active { transform: scale(0.98); }
         .candidate-card.hidden { display: none; }
 
-        .profile-img { 
-            width: 65px; 
-            height: 65px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 2px solid var(--accent); 
-        }
+        .profile-img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
 
         .info { flex-grow: 1; text-align: right; overflow: hidden; }
         .name { font-weight: bold; font-size: 1rem; color: #f8fafc; white-space: nowrap; text-overflow: ellipsis; display: block; }
 
-        .vote-count { 
-            padding: 8px 12px; 
-            border-radius: 10px; 
-            font-weight: bold; 
-            min-width: 45px; 
-            text-align: center;
-        }
+        .vote-count { padding: 8px 12px; border-radius: 10px; font-weight: bold; min-width: 45px; text-align: center; }
         .winner { background: var(--success); color: white; }
         .spare { background: var(--warning); color: black; }
         .loser { background: var(--danger); color: white; }
@@ -123,11 +122,9 @@
         .back-btn { background: var(--danger); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; }
 
         footer { text-align: center; padding: 30px 10px; margin-top: auto; color: #94a3b8; border-top: 1px solid #334155; }
-        .visitor-box { margin-top: 15px; background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; }
         
         @media (max-width: 480px) {
             h1 { font-size: 1.2rem; }
-            .profile-img { width: 55px; height: 55px; }
         }
     </style>
 </head>
@@ -141,6 +138,10 @@
 
     <div class="status-container">
         <div id="status-text">دەنگدان کۆتایی هات</div>
+    </div>
+
+    <div class="total-votes-box">
+        کۆی گشتی دەنگەکان: <span id="total-count">0</span>
     </div>
 
     <div class="controls">
@@ -245,10 +246,6 @@
 
     <footer>
         <p>گەشەپێدەر: <b style="color:var(--accent)">Drwd Zana Yadgar</b></p>
-        <div class="visitor-box">
-            <span>ژمارەی سەردانیکەران: </span>
-            <img src="https://visitor-badge.laobi.icu/badge?page_id=ArzhinElection2026.unique.id" alt="Visitors">
-        </div>
     </footer>
 
     <script>
@@ -265,14 +262,19 @@
         function updateResults() {
             const grid = document.getElementById('election-grid');
             const cards = Array.from(grid.getElementsByClassName('candidate-card'));
-            
-            // Fixed the sort logic to parse integers correctly
+            let total = 0;
+
+            // Sort and calculate total
             cards.sort((a, b) => parseInt(b.dataset.votes) - parseInt(a.dataset.votes)).forEach((card, i) => {
+                total += parseInt(card.dataset.votes);
                 const vb = card.querySelector('.vote-count');
                 vb.classList.remove('winner', 'spare', 'loser');
                 vb.classList.add(i < 6 ? 'winner' : i < 9 ? 'spare' : 'loser');
                 grid.appendChild(card);
             });
+
+            // Update the total display
+            document.getElementById('total-count').innerText = total;
         }
 
         function openModal(n, im, g, c) {
@@ -282,6 +284,7 @@
             document.getElementById('candidateModal').style.display = 'flex';
         }
         function closeModal() { document.getElementById('candidateModal').style.display = 'none'; }
+        
         window.onload = updateResults;
     </script>
 </body>
